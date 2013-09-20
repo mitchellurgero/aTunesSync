@@ -304,7 +304,7 @@ beginMediaSync:
                     'then send after removing spaces.
                     statusLabel.Text = "Sync: " + fileInFolder.Name + "..."
                     Dim arg As String = "push"
-                    Dim adbcmd1 As AdbCommand = Adb.FormAdbShellCommand(device, False, "push", MediaFolder + "\" + fileInFolder.Name + " " + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", ""))
+                    Dim adbcmd1 As AdbCommand = Adb.FormAdbCommand(device, "push " + """" + MediaFolder + "\" + fileInFolder.Name + """" + " " + """" + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", "") + """")
                     Dim test = Adb.ExecuteAdbCommand(adbcmd1)
 
                     ListBox2.Items.Add("File: " + fileInFolder.Name + "::::::Status= " + test)
