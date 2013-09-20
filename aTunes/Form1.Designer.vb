@@ -25,6 +25,10 @@ Partial Class Form1
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SyncToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReloadToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SyncToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReloadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -75,10 +79,6 @@ Partial Class Form1
         Me.Label10 = New System.Windows.Forms.Label()
         Me.TabPage6 = New System.Windows.Forms.TabPage()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
-        Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SyncToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ReloadToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ChromeTabcontrol1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -106,6 +106,31 @@ Partial Class Form1
         Me.MenuStrip1.Size = New System.Drawing.Size(926, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem1
+        '
+        Me.FileToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SyncToolStripMenuItem1, Me.ReloadToolStripMenuItem1, Me.ExitToolStripMenuItem1})
+        Me.FileToolStripMenuItem1.Name = "FileToolStripMenuItem1"
+        Me.FileToolStripMenuItem1.Size = New System.Drawing.Size(35, 20)
+        Me.FileToolStripMenuItem1.Text = "File"
+        '
+        'SyncToolStripMenuItem1
+        '
+        Me.SyncToolStripMenuItem1.Name = "SyncToolStripMenuItem1"
+        Me.SyncToolStripMenuItem1.Size = New System.Drawing.Size(107, 22)
+        Me.SyncToolStripMenuItem1.Text = "Sync"
+        '
+        'ReloadToolStripMenuItem1
+        '
+        Me.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1"
+        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(107, 22)
+        Me.ReloadToolStripMenuItem1.Text = "Reload"
+        '
+        'ExitToolStripMenuItem1
+        '
+        Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
+        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(107, 22)
+        Me.ExitToolStripMenuItem1.Text = "Exit"
         '
         'FileToolStripMenuItem
         '
@@ -586,31 +611,6 @@ Partial Class Form1
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(794, 312)
         Me.ListBox2.TabIndex = 0
-        '
-        'FileToolStripMenuItem1
-        '
-        Me.FileToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SyncToolStripMenuItem1, Me.ReloadToolStripMenuItem1, Me.ExitToolStripMenuItem1})
-        Me.FileToolStripMenuItem1.Name = "FileToolStripMenuItem1"
-        Me.FileToolStripMenuItem1.Size = New System.Drawing.Size(35, 20)
-        Me.FileToolStripMenuItem1.Text = "File"
-        '
-        'SyncToolStripMenuItem1
-        '
-        Me.SyncToolStripMenuItem1.Name = "SyncToolStripMenuItem1"
-        Me.SyncToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.SyncToolStripMenuItem1.Text = "Sync"
-        '
-        'ReloadToolStripMenuItem1
-        '
-        Me.ReloadToolStripMenuItem1.Name = "ReloadToolStripMenuItem1"
-        Me.ReloadToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.ReloadToolStripMenuItem1.Text = "Reload"
-        '
-        'ExitToolStripMenuItem1
-        '
-        Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
-        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.ExitToolStripMenuItem1.Text = "Exit"
         '
         'Form1
         '

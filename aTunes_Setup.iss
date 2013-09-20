@@ -24,7 +24,7 @@ DisableDirPage=yes
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 LicenseFile=C:\Users\Mitchell\Desktop\license.txt
-OutputDir=C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes
+OutputDir=C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync
 OutputBaseFilename=setup
 Compression=lzma
 SolidCompression=yes
@@ -36,12 +36,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\aTunes.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\AndroidLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\aTunes.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\AxInterop.WMPLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\Interop.WMPLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunes\aTunes\bin\Debug\update.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\aTunes.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\AndroidLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\aTunes.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\AxInterop.WMPLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\Interop.WMPLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\Mitchell\Documents\Visual Studio 2012\Projects\aTunesSync\aTunes\bin\Debug\update.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
