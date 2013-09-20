@@ -235,6 +235,23 @@ endload:
                 device = android.GetConnectedDevice(serial)
                 ListBox2.Items.Add("Device " + serial + " found!")
                 statusLabel.Text = "Device: " + serial + " found!"
+                If device.State = DeviceState.OFFLINE Then
+                    ListBox2.Items.Add("Device detected offline!")
+                    ListBox2.Items.Add("Sync Canceled.")
+                    GoTo endline
+                ElseIf device.State = DeviceState.RECOVERY Then
+                    ListBox2.Items.Add("Device detected in recovery!")
+                    ListBox2.Items.Add("Sync Canceled.")
+                    GoTo endline
+                ElseIf device.State = DeviceState.FASTBOOT Then
+                    ListBox2.Items.Add("Device detected in fastboot!")
+                    ListBox2.Items.Add("Sync Canceled.")
+                    GoTo endline
+                ElseIf device.State = DeviceState.UNKNOWN Then
+                    ListBox2.Items.Add("Device detected has an unknown error!")
+                    ListBox2.Items.Add("Sync Canceled.")
+                    GoTo endline
+                End If
                 If serial = TextBox1.Text Then
                     GoTo beginMediaSync
                 Else
@@ -287,8 +304,9 @@ beginMediaSync:
                     'then send after removing spaces.
                     statusLabel.Text = "Sync: " + fileInFolder.Name + "..."
                     Dim arg As String = "push"
-                    Dim adbcmd1 As AdbCommand = Adb.FormAdbCommand(device, "push", MediaFolder + "\" + fileInFolder.Name + " " + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", ""))
+                    Dim adbcmd1 As AdbCommand = Adb.FormAdbShellCommand(device, False, "push", MediaFolder + "\" + fileInFolder.Name + " " + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", ""))
                     Dim test = Adb.ExecuteAdbCommand(adbcmd1)
+
                     ListBox2.Items.Add("File: " + fileInFolder.Name + "::::::Status= " + test)
                     'Write to a log file AND a listbox of a running log
                     sw.WriteLine("Sync file: " + fileInFolder.Name + ":::::" + test)
@@ -363,7 +381,7 @@ endline:
             End If
         Catch ex As Exception
 
-            MsgBox("Cannot reach the update server, please try updating later!" + ex.Message, MsgBoxStyle.Information, "Oops!")
+            ListBox2.Items.Add("Cannot reach the update server, please try updating later!" + ex.Message)
         End Try
         statusLabel.Text = "Finished Scanning!"
     End Sub
