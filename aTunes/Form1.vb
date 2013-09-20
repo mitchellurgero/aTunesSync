@@ -12,8 +12,8 @@ Public Class Form1
     Dim MediaFolder As String = settings.GetString("MAIN", "MediaFolder", "NOTHING")
     Dim DeviceID As String = settings.GetString("MAIN", "DeviceID", "NOTHING")
     Dim DeviceMedia As String = settings.GetString("MAIN", "DeviceMedia", "NOTHING")
-    Dim verint As Integer = 2
-    Dim ver As String = "1.0.1"
+    Dim verint As Integer = 3
+    Dim ver As String = "1.0.2-B"
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Label12.Text = "Version: " + ver + vbNewLine + "Build: " + verint.ToString
@@ -221,7 +221,9 @@ endload:
         Dim serial As String
         SyncToolStripMenuItem1.Text = "Sync Started"
         SyncToolStripMenuItem1.Enabled = False
-
+        ListBox2.Items.Clear()
+        ListBox3.Items.Clear()
+        TextBox4.Clear()
         ListBox2.Items.Add("Time: " + DateTime.Now)
         ListBox2.Items.Add("Starting sync...")
         ListBox2.Items.Add("Checking for the right DeviceID...")
@@ -260,25 +262,22 @@ endload:
                     ListBox2.Items.Add("Device needed: " + TextBox1.Text)
                 End If
                 'List 3rd Part installed applications
-                'Not implimenting until Sync Client is in order first! leave this part alone!
-                GoTo beginMediaSync
-                Dim adbcmd As AdbCommand = Adb.FormAdbShellCommand(device, True, "pm", "list packages -3")
-                'Checking for org.urgero.syncclient (aTunes Mobile Sync Client App)
-                Dim syncClient = Adb.ExecuteAdbCommand(adbcmd)
-                If syncClient.Contains("org.urgero.syncclient") Then
-                    'If true then start the application remotely
-                    Dim adbcmd3 As AdbCommand = Adb.FormAdbShellCommand(device, True, "am", "start org.urgero.syncclient./syncUp")
-                    Dim startsyncclient = Adb.ExecuteAdbCommand(adbcmd3)
-                    ListBox2.Items.Add("Sync Client Startup: " + startsyncclient.ToString)
-                Else
-                    'If false goto line startsync
-                    GoTo startsync
+                'List media files on the device
 
-                End If
+
 beginMediaSync:
-
                 ListBox2.Items.Add("Preparing Media Folder for sync.....")
                 statusLabel.Text = "Preparing Media Folder for Sync..."
+                'List Media On the Device MU
+
+                Dim adblistmedia As AdbCommand = Adb.FormAdbShellCommand(device, False, "ls", TextBox3.Text)
+                Dim adblistmediadone = Adb.ExecuteAdbCommand(adblistmedia)
+                ListBox3.Items.AddRange(adblistmediadone.Split(vbNewLine))
+                TextBox4.AppendText(adblistmediadone)
+                Do While ListBox3.Items.Contains("")
+                    ListBox3.Items.Remove("")
+                Loop
+
                 TextBox1.Text = serial
                 MediaFolder = TextBox2.Text
                 'Begin listing all files (*.mp3) in the MediaFolder Dir
@@ -294,6 +293,7 @@ beginMediaSync:
                 Dim sw As New StreamWriter("sync_log.txt")
                 sw.WriteLine("Time: " + DateTime.Now)
                 'Remove spaces (For compatibility with android push command)
+                Dim totalSyncFiles As Integer = 0
                 For Each fileInFolder In arrFilesInFolder
                     'Added to ListBox
                     If fileInFolder.Name.Contains(" ") Then
@@ -302,6 +302,10 @@ beginMediaSync:
 
                     End If
                     'then send after removing spaces.
+                    If TextBox4.Text.Contains(fileInFolder.Name) Then
+                        GoTo skipMediaFile
+
+                    End If
                     statusLabel.Text = "Sync: " + fileInFolder.Name + "..."
                     Dim arg As String = "push"
                     Dim adbcmd1 As AdbCommand = Adb.FormAdbCommand(device, "push " + """" + MediaFolder + "\" + fileInFolder.Name + """" + " " + """" + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", "") + """")
@@ -311,6 +315,9 @@ beginMediaSync:
                     'Write to a log file AND a listbox of a running log
                     sw.WriteLine("Sync file: " + fileInFolder.Name + ":::::" + test)
                     'statusLabel.Text = "Sync file: " + fileInFolder.Name
+                    totalSyncFiles += 1
+skipMediaFile:
+
                     ProgressBar2.Value += 1
                 Next
                 sw.Close()
@@ -318,30 +325,13 @@ beginMediaSync:
                 ProgressBar2.Value = 0
                 statusLabel.Text = "Finished Sync!"
                 ListBox2.Items.Add("Finished Sync!")
-                ListBox2.Items.Add("Total Number of Files: " + totalFiles.ToString)
+                ListBox2.Items.Add("Total Number of Files Synced: " + totalSyncFiles.ToString)
             Else
                 MsgBox("There was no device found! Make sure it is plugged in and drivers are installed!", MsgBoxStyle.Information, "Oops!")
                 ListBox2.Items.Add("Error scanning for device: Device not found!")
             End If
             android.Dispose()
-            GoTo endline
-startsync:
-            'Ask user if they want to install the Sync Client
-            If MsgBox("It seems you need to install the aTunes Mobile Sync Client still. Sync will still work, but installing the sync client allows better stablizaiton of the file transfers." + vbNewLine + "Would you like to install aTunes Mobile Sync Client?", MsgBoxStyle.YesNo, "Sync Client not found.") = MsgBoxResult.Yes Then
-                'If true, then install
-                Dim ascInstall = device.InstallApk("asc.apk")
-                MsgBox("Install " + ascInstall, MsgBoxStyle.Information, "Installation")
-                If MsgBox("You must reboot the device to finish the installation." + vbNewLine + "Would you like to reboot the device now?", MsgBoxStyle.YesNo, "Reboot Device?") = MsgBoxResult.Yes Then
-                    'reboot
-                    Shell("adb reboot")
-                Else
-                    'Or Not and quit sync
-                    GoTo endline
-                End If
-            Else
-                'If app was or was not installed, if user decided to sync anyway (Possible) then go back  to top and sync
-                GoTo beginMediaSync
-            End If
+            Shell("taskkill /F /IM adb.exe", AppWinStyle.Hide, True)
         Catch ex As Exception
             'State Error
             statusLabel.Text = "Error: " + ex.Message
@@ -351,10 +341,6 @@ startsync:
 endline:
         SyncToolStripMenuItem1.Text = "Sync"
         SyncToolStripMenuItem1.Enabled = Enabled
-    End Sub
-    Private Sub LoadSyncClient()
-
-
     End Sub
     Private Sub ProgressBar1_Click(sender As Object, e As EventArgs) Handles ProgressBar1.Click
     End Sub

@@ -75,6 +75,8 @@ Partial Class Form1
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.AxWindowsMediaPlayer1 = New AxWMPLib.AxWindowsMediaPlayer()
         Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.ListBox3 = New System.Windows.Forms.ListBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.TabPage6 = New System.Windows.Forms.TabPage()
@@ -565,6 +567,8 @@ Partial Class Form1
         'TabPage7
         '
         Me.TabPage7.BackColor = System.Drawing.Color.LightGray
+        Me.TabPage7.Controls.Add(Me.TextBox4)
+        Me.TabPage7.Controls.Add(Me.ListBox3)
         Me.TabPage7.Controls.Add(Me.Label11)
         Me.TabPage7.Controls.Add(Me.Label10)
         Me.TabPage7.Location = New System.Drawing.Point(119, 4)
@@ -573,6 +577,24 @@ Partial Class Form1
         Me.TabPage7.Size = New System.Drawing.Size(665, 296)
         Me.TabPage7.TabIndex = 2
         Me.TabPage7.Text = "About your Library"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(331, 195)
+        Me.TextBox4.Multiline = True
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(331, 95)
+        Me.TextBox4.TabIndex = 3
+        Me.TextBox4.Visible = False
+        '
+        'ListBox3
+        '
+        Me.ListBox3.FormattingEnabled = True
+        Me.ListBox3.Location = New System.Drawing.Point(12, 195)
+        Me.ListBox3.Name = "ListBox3"
+        Me.ListBox3.Size = New System.Drawing.Size(216, 95)
+        Me.ListBox3.TabIndex = 2
+        Me.ListBox3.Visible = False
         '
         'Label11
         '
@@ -708,5 +730,7 @@ Partial Class Form1
     Friend WithEvents SyncToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReloadToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ListBox3 As System.Windows.Forms.ListBox
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
 
 End Class
