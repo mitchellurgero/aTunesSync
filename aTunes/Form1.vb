@@ -349,7 +349,7 @@ endline:
             Dim verDown = wc.DownloadString(address)
             If verDown > verint Then
 
-                If MsgBox("An update has been found!" + vbNewLine + "Build Number Now: " + verint + vbNewLine + "Build Number From Update: " + verDown + vbNewLine + "Would you like to update?", MsgBoxStyle.YesNo, "Update Available!") = MsgBoxResult.Yes Then
+                If MsgBox("An update has been found!" + vbNewLine + "Build Number Now: " + verint.ToString + vbNewLine + "Build Number From Update: " + verDown + vbNewLine + "Would you like to update?", MsgBoxStyle.YesNo, "Update Available!") = MsgBoxResult.Yes Then
                     Try
 
                         Process.Start("update.exe")
@@ -363,7 +363,7 @@ endline:
             End If
         Catch ex As Exception
 
-            'MsgBox("Cannot reach the update server, please try updating later!", MsgBoxStyle.Information, "Oops!")
+            MsgBox("Cannot reach the update server, please try updating later!" + ex.Message, MsgBoxStyle.Information, "Oops!")
         End Try
         statusLabel.Text = "Finished Scanning!"
     End Sub
