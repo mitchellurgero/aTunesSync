@@ -311,7 +311,7 @@ beginMediaSync:
                     Dim adbcmd1 As AdbCommand = Adb.FormAdbCommand(device, "push " + """" + MediaFolder + "\" + fileInFolder.Name + """" + " " + """" + DeviceMedia + "/" + fileInFolder.Name.Replace(" ", "") + """")
                     Dim test = Adb.ExecuteAdbCommand(adbcmd1)
 
-                    ListBox2.Items.Add("File: " + fileInFolder.Name + "::::::Status= " + test)
+                    ListBox2.Items.Add("File: " + fileInFolder.Name + ":::::: " + test)
                     'Write to a log file AND a listbox of a running log
                     sw.WriteLine("Sync file: " + fileInFolder.Name + ":::::" + test)
                     'statusLabel.Text = "Sync file: " + fileInFolder.Name
